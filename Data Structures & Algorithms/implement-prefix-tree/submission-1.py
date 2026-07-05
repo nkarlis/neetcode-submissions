@@ -1,0 +1,41 @@
+class PrefixTreeNode:
+
+    def __init__(self):
+        self.children = 26 * [None]
+        self.end = False
+
+class PrefixTree:
+
+    def __init__(self):
+        self.root = PrefixTreeNode()
+        
+
+    def insert(self, word: str) -> None:
+        cur = self.root
+        for c in word:
+            i = ord(c) - ord("a")
+            if cur.children[i] == None:
+                cur.children[i] = PrefixTreeNode()
+            cur = cur.children[i]
+        cur.end = True
+
+
+    def search(self, word: str) -> bool:
+        cur = self.root
+        for c in word:
+            i = ord(c) - ord("a")
+            if cur.children[i] == None:
+                return False
+            cur = cur.children[i]
+        return cur.end
+
+    def startsWith(self, prefix: str) -> bool:
+        cur = self.root
+        for c in prefix:
+            i = ord(c) - ord("a")
+            if cur.children[i] == None:
+                return False
+            cur = cur.children[i]
+        return True
+        
+        
